@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	form(method="POST",action="/")
+		label(for="name") Name
+		input(type="text",name="name")
+		br
+		label(for="email") Email
+		input(type="text",name="email")
+		br
+		label(for="phone") Phone
+		input(type="text",name="phone")
+		br
+		label(for="password") Password
+		input(type="password",name="password")
+		br
+		button(type="submit") Register
