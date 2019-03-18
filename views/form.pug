@@ -1,17 +1,99 @@
+
 extends layout
 
 block content
+	style.
+		.inputRegister{
+		display:inline-block;
+		width:200px;
+		text-align:center;
+		padding:10px;
+		height:30px;
+		margin-left:50px;
+		margin-top:15px;
+		border:none;
+		border:solid 2px tomato;
+		border-radius:8px;
+		}
+		td{
+		padding:10px;
+		}
+		.btnEdit,.btnDel,.btnReg{
+		height:30px;
+		line-height:25px;
+		color:white;
+		border:none;
+		border-radius:4px;
+		}
+		.btnReg{
+		background:blue;
+		}
+		.btnEdit{
+		background:green;
+		}
+		.btnDel{
+		background:red;
+		}
+		#errors_message>li{
+		color:red;
+		}
+	h3 ADD USER
+	if error_messages
+		ul(id="errors_message")
+			each error in error_messages
+				-var temp=error.path.toUpperCase()
+				li=temp+" : "+error.message
+	if success_message
+		li(style="color:green") Create Accout Successfully!
 	form(method="POST",action="/")
 		label(for="name") Name
-		input(type="text",name="name")
+		input(class="inputRegister" type="text",name="name")
 		br
 		label(for="email") Email
-		input(type="text",name="email")
+		input(class="inputRegister" type="text",name="email")
 		br
 		label(for="phone") Phone
-		input(type="text",name="phone")
+		input(class="inputRegister" type="text",name="phone")
 		br
 		label(for="password") Password
-		input(type="password",name="password")
+		input(class="inputRegister" type="password",name="password")
 		br
-		button(type="submit") Register
+		button( type="submit",class="btnReg") Register
+	h3 LIST USERS
+	table(border="1")
+		tr
+			th STT
+			th Name
+			th Mail
+			th Phone
+			th Password
+			th Edit
+			th Delete
+		
+		each val,index in users
+			tr
+				td=index+1
+				td=val.name
+				td=val.email
+				td=val.phone
+				td=val.password
+				td
+					button(class="btnEdit",onclick="edit('"+val.email+"')" ) EDIT
+				td
+					button(class="btnDel",onclick="deletes('"+val.email+"')") DELETE
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js")
+	script.
+		window.history.pushState(null,'Register','/Register')
+		var deletes = (email)=>{
+			if(confirm("Are you sure?")){
+			axios.post('../users/delete',{
+				email:email
+			}).then((data)=>{alert(data.data);location.reload()}).catch((err)=>console.log(err));
+			}
+		}
+		var cookie = JSON.parse(decodeURIComponent(getCookie("message")).split("j:")[1])
+		function getCookie(name) {
+		    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+		    return v ? v[2] : null;
+		}
+
