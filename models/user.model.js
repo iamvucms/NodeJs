@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
 var userSchema = new mongoose.Schema({
 	name:{
 		type:String,
@@ -12,29 +13,31 @@ var userSchema = new mongoose.Schema({
 		required:true,
 		validate:{
 			validator: (input)=>{
-				return /^[0][0-9]{9}$/i.test(input)
+				return /^[0][0-9]{9}$/g.test(input)
 			},
 			message: props => `${props.value} is not a phone number`
 		}
 	},
 	email:{
 		type:String,
-		validate: {
-	      validator: (input)=>{
-	        return /^[\S]{3,}@[a-zA-Z0-9-]{3,}\.[a-z-A-Z]{2,}$/i.test(input);
-	      },
-	      message: props => `${props.value} is not a email`
-	    },
-		required:true
+		validate: { 
+			validator: (input)=>{
+			return /^[\S]{3,}@[a-zA-Z0-9-]{3,}\.[a-z-A-Z]{2,}$/i.test(input);
+			},
+			message: props => `${props.value} is not a email`
+		},
+		required:true,
+		index:true,
+		unique:true
 
 	},
 	password:{
 		type:String,
 		validate:{
 			validator:(input)=>{
-				return /[]/i.test(input);
-			},
-			message:props=>`${props.value} is not aceepted. Password need more then 6 characters and both of lower characters and upper characters`
+				return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*])[^\s]{9,}$/g.test(input);
+			},	
+			message:props=>`Password need more then 8 characters and both of lower characters,upper characters, number and special characters without space`
 		},
 		required:true
 
