@@ -115,9 +115,9 @@ block content
                     -ms-transform: scale(0.95);
                     transform: scale(0.95);
                     }
-
-                    input[type=text] {
-                    background-color: #f6f6f6;
+                    
+                    input[type=text], input[type=password] {
+                    background-color: #e5e5e5;
                     border: none;
                     color: #0d0d0d;
                     padding: 15px 32px;
@@ -134,14 +134,17 @@ block content
                     -o-transition: all 0.5s ease-in-out;
                     transition: all 0.5s ease-in-out;
                     -webkit-border-radius: 5px 5px 5px 5px;
-                    border-radius: 5px 5px 5px 5px;
+                    border-radius:48px 48px 48px 48px;
                     }
 
                     input[type=text]:focus {
                     background-color: #fff;
                     border-bottom: 2px solid #5fbae9;
                     }
-
+                    input[type=password]:focus{
+                    background-color: #fff;
+                    border-bottom: 2px solid #5fbae9;
+                    }
                     input[type=text]:placeholder {
                     color: #cccccc;
                     }
@@ -274,7 +277,7 @@ block content
                               // Login Form
                               form(action="/users/login" method="post")
                                         input#login.fadeIn.second(type='text', name='email', placeholder='Email')
-                                        input#password.fadeIn.third(type='text', name='password', placeholder='Password')
+                                        input#password.fadeIn.third(type='password', name='password', placeholder='Password')
                                         if errors
                                                   ul
                                                   each err in errors

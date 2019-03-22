@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+const passport = require('passport')
 module.exports.index = (req,res)=>{
 	res.render('index',{title:'VPixels'})
 	console.log(req.body)
@@ -15,7 +16,7 @@ module.exports.getRegForm = async (req,res)=>{
 	
 }
 module.exports.postRegForm = async (req,res)=>{
-        
+        //Register 
           doc = new User(req.body)
           doc.password =  doc.generateHash(req.body.password)
 	await doc.save((err,rss)=>{
@@ -33,11 +34,8 @@ module.exports.postRegForm = async (req,res)=>{
                                                   }]
                                         ))
                               }else  res.redirect('/Register?errors='+JSON.stringify(err.errors))
-                            
-			
 		}
-	})
-	
+	})	
 }
 module.exports.getUser = async (req,res)=>{
 	data = await User.find().then((data)=>data)
@@ -51,32 +49,38 @@ module.exports.deleteUser = async (req,res)=>{
 			res.status(200).send("Error! No match with our resource");
 		}
 	})
-	
 }
 module.exports.getLogin  = (req,res)=>{
-          res.render("login",{errors:req.flash("errors")})
+          if(!req.isAuthenticated()) res.render("login",{errors:req.flash("errors")})
+          else res.redirect("/home")
 }
-module.exports.postLogin  = async (req,res)=>{
-          let errors = []
-          let data  = await User.findOne({email:req.body.email.trim()},(err,rss)=>{
-                    if(err){
-                              console.log(err)
-                    }else{
-                              if(rss===null){
-                    
-                                        errors.push("Email doesn't match with our resource");
-                              }else{
-                                        if(!rss.validatePassword(req.body.password.trim())){
-                                                  errors.push("Password isn't correct")
-                                        }else{    
-                                                  return redirect('/');
-                                        }
-                              }
-                    }
-          })
-          console.log(data)
+// module.exports.postLogin  = async (req,res)=>{
+//           let errors = []
+//           let data  = await User.findOne({email:req.body.email.trim()},(err,rss)=>{
+//                     if(err){
+//                               console.log(err)
+//                     }else{
+//                               if(rss===null){
+//                                         errors.push("Email doesn't match with our resource");
+//                               }else{
+//                                         if(!rss.validatePassword(req.body.password,rss.password)){
+//                                                   errors.push("Password isn't correct")
+//                                         }else{    
+//                                                   return res.redirect('/');
+//                                         }
+//                               }
+//                     }
+//           })
+//           console.log(data)
          
-          req.flash('errors',errors)
-          return res.redirect('/users/login');
+//           req.flash('errors',errors)
+//           return res.redirect('/users/login');
           
-}
+// }
+module.exports.postLogin = (req,res,next)=>{
+         
+          passport.authenticate('local',{
+                    failureRedirect:'/users/login',
+                    successRedirect:'/asdfasfas'
+          })(req,res,next)
+};
