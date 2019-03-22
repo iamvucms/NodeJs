@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.set('useCreateIndex', true);
-var userSchema = new mongoose.Schema({
+const bcrypt   = require('bcrypt-nodejs');
+
+var userSchema = mongoose.Schema({
 	name:{
 		type:String,
 		required:true,
@@ -33,18 +34,27 @@ var userSchema = new mongoose.Schema({
 	},
 	password:{
 		type:String,
-		validate:{
-			validator:(input)=>{
-				return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*])[^\s]{9,}$/g.test(input);
-			},	
-			message:props=>`Password need more then 8 characters and both of lower characters,upper characters, number and special characters without space`
-		},
+		// validate:{
+		// 	validator:(input)=>{
+		// 		return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*])[^\s]{9,}$/g.test(input);
+		// 	},	
+		// 	message:props=>`Password need more then 8 characters and both of lower characters,upper characters, number and special characters without space`
+		// },
 		required:true
 
 	},
 	versionKey:false
 });
-
+userSchema.methods.generateHash = (pwd)=>{
+          return bcrypt.hashSync(pwd,bcrypt.genSaltSync(8),null);
+}
+userSchema.methods.validatePassword = (pwd)=>{
+         if(this.password!=null){
+                   //log this.password ra thi` khong co gi` ca?
+                    return bcrypt.compareSync(pwd,this.password);
+         }else return false;
+         
+}
 const User = mongoose.model('User',userSchema,'users');
 
 module.exports = User;

@@ -7,4 +7,5 @@ router.get('/Register(\/\?errors=[^\s]+)?',indexController.getRegForm)
 router.post('/',indexController.postRegForm)
 router.get('/userss',indexController.getUser)
 router.post('/users/delete',indexController.deleteUser)
+
 module.exports = router;
