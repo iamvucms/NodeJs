@@ -1,0 +1,64 @@
+doctype html
+html
+          head
+                    title=title
+                    link(rel='stylesheet', href='/stylesheets/style.css')
+                    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', rel='stylesheet')
+                    style.
+                              #menu{
+                                        width:65%;
+                                        margin:20px auto;
+                              }
+                    
+                              a{
+                                        text-decoration:none;
+                              }
+                              #menu li{
+                                        border:2px solid #007bff;
+                                        height:50px;
+                                        line-height:50px;
+                                        text-align:center;
+                                        flex-grow:1;
+                                        margin:0px 2px;
+                              }
+                              #menu li:hover{
+                                        background:
+                              }
+                              ul{
+                                        display:flex;
+                                        
+                                        list-style:none
+                              }
+                              #posts{
+                                        display:flex;
+                                        flex-wrap:wrap;
+                              }
+                              .card{
+                                        max-width:calc(100% * (1/6) - 10px - 1px);
+                                        display:inline-block;
+                                        margin:5px 5px;
+                                        flex-grow:1;
+                                        flex-basis:calc(100% * (1/6) - 10px)
+                              }
+                              #postnow{
+                                        width:30%;
+                                        margin:0 auto;
+                                        padding: 10px;
+                                        border:1px solid red;
+                                        
+                              }
+          body
+                    div#menu
+                              ul
+                                        li
+                                                  a(href="/home") Home
+                                        li
+                                                 a(href="/home/profile/me") Profile
+                                        li
+                                                 a(href="#") Setting
+                                        li
+                                                 a(href="home/logout.html") Logout
+                    block content
+                    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+                    script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
+                    

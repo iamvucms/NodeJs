@@ -7,14 +7,16 @@ module.exports = (passport)=>{
                     passwordField:'password',
                     passReqToCallback:true
           },async (req,email,password,done)=>{
-                    console.log(req.body)
+                    // console.log(req.body)
                     let data  = await User.findOne({email:email},(err,rss)=>{
-                              console.log(rss)
+                              // console.log(rss)
                               if(err) throw err
                               if(rss==null){
+                                        req.flash("login_msg","Email doesn't match with our resource");
                                         return done(null,false)
                               }else{
                                         if(!rss.validatePassword(password,rss.password)){
+                                                  req.flash("login_msg","Email or password doesn't match with our resource")
                                                   return done(null,false)
                                         }else{    
                                                   return done(null,rss)

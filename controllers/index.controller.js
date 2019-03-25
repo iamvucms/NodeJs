@@ -1,5 +1,6 @@
 const User = require('../models/user.model')
 const passport = require('passport')
+const mongoose = require('mongoose')
 module.exports.index = (req,res)=>{
 	res.render('index',{title:'VPixels'})
 	console.log(req.body)
@@ -19,6 +20,8 @@ module.exports.postRegForm = async (req,res)=>{
         //Register 
           doc = new User(req.body)
           doc.password =  doc.generateHash(req.body.password)
+          doc._id = new mongoose.Types.ObjectId();
+          console.log(doc)
 	await doc.save((err,rss)=>{
                    
 		if(!err){
@@ -39,7 +42,7 @@ module.exports.postRegForm = async (req,res)=>{
 }
 module.exports.getUser = async (req,res)=>{
 	data = await User.find().then((data)=>data)
-	console.log(data)
+	// console
 }
 module.exports.deleteUser = async (req,res)=>{
 	await User.findOneAndDelete({email:req.body.email},(err,data)=>{
@@ -50,8 +53,8 @@ module.exports.deleteUser = async (req,res)=>{
 		}
 	})
 }
-module.exports.getLogin  = (req,res)=>{
-          if(!req.isAuthenticated()) res.render("login",{errors:req.flash("errors")})
+module.exports.getLogin  = (req,res,next)=>{
+          if(!req.isAuthenticated()) res.render("login",{errors:req.flash("login_msg")})
           else res.redirect("/home")
 }
 // module.exports.postLogin  = async (req,res)=>{
@@ -71,7 +74,7 @@ module.exports.getLogin  = (req,res)=>{
 //                               }
 //                     }
 //           })
-//           console.log(data)
+//           console
          
 //           req.flash('errors',errors)
 //           return res.redirect('/users/login');

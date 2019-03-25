@@ -1,0 +1,63 @@
+extends layout
+block content
+          center Welcome you <b> #{userinfo.name} </b>
+          
+          div#postnow
+                   form(action="/home/post" method="post",enctype="multipart/form-data")
+                              label(for="msg") Content:
+                              input#msg.form-control(name="msg" )
+                              label(for="img") Image:
+                              input.form-control(type="file" name="img" )
+                              button.btn.btn-primary Post                 
+          div#posts
+                    .card(style='width: 18rem;')
+                              img.card-img-top(src='...', alt='...')
+                              .card-body
+                                        h5.card-title Card title
+                                        p.card-text
+                                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+                                        a.btn.btn-primary(href='#') Go somewhere
+                    .card(style='width: 18rem;')
+                              img.card-img-top(src='...', alt='...')
+                              .card-body
+                                        h5.card-title Card title
+                                        p.card-text
+                                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+                                        a.btn.btn-primary(href='#') Go somewhere
+                    .card(style='width: 18rem;')
+                              img.card-img-top(src='...', alt='...')
+                              .card-body
+                                        h5.card-title Card title
+                                        p.card-text
+                                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+                                        a.btn.btn-primary(href='#') Go somewhere
+                    .card(style='width: 18rem;')
+                              img.card-img-top(src='...', alt='...')
+                              .card-body
+                                        h5.card-title Card title
+                                        p.card-text
+                                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+                                        a.btn.btn-primary(href='#') Go somewhere
+                    .card(style='width: 18rem;')
+                              img.card-img-top(src='...', alt='...')
+                              .card-body
+                                        h5.card-title Card title
+                                        p.card-text
+                                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+                                        a.btn.btn-primary(href='#') Go somewhere
+                    .card(style='width: 18rem;')
+                              img.card-img-top(src='...', alt='...')
+                              .card-body
+                                        h5.card-title Card title
+                                        p.card-text
+                                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+                                        a.btn.btn-primary(href='#') Go somewhere
+                    .card(style='width: 18rem;')
+                              img.card-img-top(src='...', alt='...')
+                              .card-body
+                                        h5.card-title Card title
+                                        p.card-text
+                                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+                                        a.btn.btn-primary(href='#') Go somewhere
+                    
+                    

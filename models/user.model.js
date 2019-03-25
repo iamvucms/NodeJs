@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt   = require('bcrypt-nodejs');
-
+const Schema = mongoose.Schema;
 var userSchema = new mongoose.Schema({
+          _id: Schema.Types.ObjectId,
 	name:{
 		type:String,
 		required:true,
@@ -42,7 +43,8 @@ var userSchema = new mongoose.Schema({
 		// },
 		required:true
 
-	},
+          },
+          posts:[{type:Schema.Types.ObjectId,ref:'Post'}],  
 	versionKey:false
 });
 userSchema.methods.generateHash = (pwd)=>{
